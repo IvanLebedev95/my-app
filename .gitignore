@@ -5,6 +5,7 @@ target/
 *.jar
 *.war
 *.class
+backend/src/main/resources/firebase-service-account.json
 
 # ============================
 # Node.js / React / Vite
