@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
+// created_at приходит с бэкенда как ISO-8601 в UTC; toLocaleString()
+// приводит его к локальной таймзоне (и локали) браузера пользователя.
+function formatTimestamp(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleString();
+}
+
 function App() {
   const [authToken, setAuthToken] = useState(() => localStorage.getItem('authToken'));
   const [authMode, setAuthMode] = useState('login');
@@ -101,7 +108,7 @@ function App() {
       <p className="status">{status}</p>
       <h2>Сохранённые сообщения:</h2>
       <ul>
-        {messages.map(msg => (<li key={msg.id}><strong>{msg.text}</strong> <small>({msg.createdAt})</small></li>))}
+        {messages.map(msg => (<li key={msg.id}><strong>{msg.text}</strong> <small>({formatTimestamp(msg.createdAt)})</small></li>))}
       </ul>
     </div>
   );
